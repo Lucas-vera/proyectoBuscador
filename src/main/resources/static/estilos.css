@@ -1,0 +1,101 @@
+body{
+    background-color: rgb(23, 25, 56);
+}
+.links{
+    text-decoration: none;
+    color: blanchedalmond;    
+}
+.links:hover{
+    text-decoration: underline;
+    color: blanchedalmond;
+}
+.logo{
+    user-select: none;
+    font-size: 65px;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 600;
+    color: rgba(255, 248, 248, 0.6);
+   /*font-family: 'Roboto Mono', monospace;*/
+}
+
+/*--------------QUERYS----------------------------*/
+@media only screen and (max-width: 995px){
+    .busqueda{
+        height: 2.5em;
+        border-radius: 15px;
+    }
+    .botonBuscar{
+        width: 13em;
+        margin: auto;
+    }
+    .form-control{
+        border-radius: 15px;
+    }
+    .cuerpoBusqueda{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin-top: 2em;
+        margin-left: 1em;
+    }
+    .logo{
+        user-select: none;
+        font-size: 65px;
+        font-family: 'Libre Franklin', sans-serif;
+        font-weight: 600;
+        color: rgba(255, 248, 248, 0.6);
+       /*font-family: 'Roboto Mono', monospace;*/
+       margin: auto;
+    }
+    
+}
+@media only screen and (min-width: 996px) and (max-width: 2000px){
+    .busqueda{
+        height: 3.1em;
+        border-radius: 15px;
+        width: 40em;
+        margin: auto;
+    }
+    .botonBuscar{
+        width: 13em;
+        margin: auto;
+    }
+    .form-control{
+        border-radius: 15px;
+        width: 40em;
+    }
+    .cuerpoBusqueda{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin-top: 2em;
+        margin-left: 9.6em;
+    }
+    .textoPaginas{
+        width: 42em;
+    }
+
+}
+@media only screen and (min-width: 2001px){
+    .busqueda{
+        height: 3.1em;
+        border-radius: 15px;
+        width: 40em;
+        margin: auto;
+    }
+    .botonBuscar{
+        width: 13em;
+        margin: auto;
+    }
+    .form-control{
+        border-radius: 15px;
+        width: 40em;
+    }
+    .cuerpoBusqueda{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin-top: 2em;
+        margin-left: 9.6em;
+    }
+    .textoPaginas{
+        width: 44em;
+        font-size: 14px;
+    }
+
+}
+
