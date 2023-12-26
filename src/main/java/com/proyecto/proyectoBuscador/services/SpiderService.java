@@ -11,6 +11,9 @@
 package com.proyecto.proyectoBuscador.services;
 
 import com.proyecto.proyectoBuscador.entities.WebPage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -118,8 +119,13 @@ public class SpiderService {
     }
     
     private String getDescription(String content){
-        String aux= content.split("<meta name=\"description\" content=\"")[1];
-        return aux.split("\" />")[0].split("\"/>")[0].split("\">")[0];
+        String[] contenidoSplit = content.split("<meta name=\"description\" content=\"");
+        String aux= "";
+        if(contenidoSplit.length > 1) {
+            aux = Arrays.stream(contenidoSplit).toList().get(1);
+            return aux.split("\" />")[0].split("\"/>")[0].split("\">")[0];
+        }
+        return aux;
     }
     
         
@@ -150,12 +156,19 @@ public class SpiderService {
         
         
         
-        List<String> result= links.stream().filter(link -> Arrays.stream(extensiones).noneMatch(extension -> link.endsWith(extension) ) )
-                                           .filter(link -> link.startsWith("http:"))
-                                           .map(link -> link.startsWith("/") ? domain + link : link)
-                                           .collect(Collectors.toList());
+        List<String> resultExtensiones= links.stream().filter(link -> Arrays.stream(extensiones).noneMatch(extension -> link.endsWith(extension) ) ).collect(Collectors.toList());
+        for( String link : resultExtensiones){
+            if(!link.startsWith("https:") || !link.startsWith("http:")){
+                resultExtensiones.remove(link);
+            }
+        }
+        //List<String> resultTerminacion = resultExtensiones.stream().filter(link -> link.startsWith("https:")).collect(Collectors.toList());
+        List<String> resultMap = resultExtensiones.stream().map(link -> link.startsWith("/") ? domain + link : link)
+                .collect(Collectors.toList());
+
+
         List<String> resultLinks = new ArrayList<>();
-        resultLinks.addAll(new HashSet<>(result));
+        resultLinks.addAll(new HashSet<>(resultMap));
         
         return resultLinks; 
         

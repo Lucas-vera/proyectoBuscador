@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
- *Servicio para programar la otro servicio a ejecutarse a un tiempo determinado
+ *Servicio para programar el otro servicio a ejecutarse a un tiempo determinado
  * @author chuky
  */
 

@@ -27,7 +27,7 @@
             document.getElementById("buscar").value=query.replaceAll("%20", " ");
         }
 
-        fetch('http://localhost:8080/api/search?query='+query,)
+        fetch('http://localhost:8080/api/search?query='+ query,)
         .then(response => response.json())
         .then(json => {
             let htmlGenerado;
