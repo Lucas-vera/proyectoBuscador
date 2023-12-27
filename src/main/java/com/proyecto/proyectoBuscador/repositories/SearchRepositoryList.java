@@ -12,11 +12,13 @@ import java.util.Optional;
  * @author chuky
  */
 @Repository
-public interface SearchRepository extends ListCrudRepository<WebPage, Long> {
+public interface SearchRepositoryList extends ListCrudRepository<WebPage, Long> {
 
     List<WebPage> findByDescriptionLike(String textSearch);
 
     Optional<WebPage> findByUrl(String link);
 
-    List<WebPage> findByTitleIsNullAndDescriptionIsNull();
+    Optional<List<WebPage>> findByContadorRevision(int contador);
+
+    List<WebPage> findByDescriptionIsNull();
 }

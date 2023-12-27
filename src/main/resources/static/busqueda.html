@@ -40,7 +40,7 @@
         function getHTMLResults(jsonSearch){
             
             return `<div class="row cuerpoBusqueda">
-                <h5 class="text-light"><a class="links" href="${jsonSearch.url}">${jsonSearch.title}</a></h5>
+                <h5 class="text-light"><a target="_blank" class="links" href="${jsonSearch.url}">${jsonSearch.title}</a></h5>
                 <span class="text-light textoPaginas">${jsonSearch.description}</span>
             </div>`
         }

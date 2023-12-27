@@ -4,10 +4,8 @@ import com.proyecto.proyectoBuscador.entities.WebPage;
 import com.proyecto.proyectoBuscador.services.SearchService;
 import com.proyecto.proyectoBuscador.services.SpiderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,8 @@ public class SearchController {
     private SearchService service;
     @Autowired
     private SpiderService spiderService;
-    
+
+    @CrossOrigin(origins = "*") //Soluciona el problema cors
     @GetMapping("/search")
     public List<WebPage> search(@RequestParam Map<String, String> params){
         String query = params.get("query");
@@ -34,5 +33,10 @@ public class SearchController {
     @GetMapping("/test")
     public void search(){
         spiderService.indexWebPages();
+    }
+
+    @GetMapping("/clean")
+    public ResponseEntity<String> clean(){
+        return ResponseEntity.ok(service.cleanWebPages());
     }
 }

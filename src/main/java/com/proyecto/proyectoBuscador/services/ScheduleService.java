@@ -16,9 +16,12 @@ public class ScheduleService {
     
     @Autowired
     private SpiderService spiderService;
+    @Autowired
+    private SearchService service;
     
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 25 14 * * ?")
     public void scheduleIndexWebPages(){
         spiderService.indexWebPages();
+        service.cleanWebPages();
     }
 }

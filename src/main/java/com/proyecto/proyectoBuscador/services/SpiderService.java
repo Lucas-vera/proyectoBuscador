@@ -41,7 +41,7 @@ public class SpiderService {
      * Obtiene links aun no indexados en la BD y los manda a indexar.
      */
     public void indexWebPages(){
-        List<WebPage> linksToIndex = searchService.getLinksToIndex();
+        List<WebPage> linksToIndex = searchService.getLinksToIndex().toList();
         linksToIndex.stream().parallel().forEach(webPage -> {
             try {
 
@@ -97,6 +97,9 @@ public class SpiderService {
         wp.setDescription(description);
         wp.setTitle(title);
 
+        if(wp.getContadorRevision() == null) wp.setContadorRevision(0);
+        wp.setContadorRevision(wp.getContadorRevision()+1);
+
         
         searchService.save(wp);
     }
@@ -114,8 +117,13 @@ public class SpiderService {
     }
     
     private String getTitle(String content){
-        String aux= content.split("<title>")[1];
-        return aux.split("</title")[0];
+        String[] contenidoSplit = content.split("<title>");
+        String aux= "";
+        if(contenidoSplit.length > 1) {
+            aux = Arrays.stream(contenidoSplit).toList().get(1);
+            return aux.split("</title")[0];
+        }
+        return null;
     }
     
     private String getDescription(String content){
@@ -125,7 +133,7 @@ public class SpiderService {
             aux = Arrays.stream(contenidoSplit).toList().get(1);
             return aux.split("\" />")[0].split("\"/>")[0].split("\">")[0];
         }
-        return aux;
+        return null;
     }
     
         
@@ -156,19 +164,15 @@ public class SpiderService {
         
         
         
-        List<String> resultExtensiones= links.stream().filter(link -> Arrays.stream(extensiones).noneMatch(extension -> link.endsWith(extension) ) ).collect(Collectors.toList());
-        for( String link : resultExtensiones){
-            if(!link.startsWith("https:") || !link.startsWith("http:")){
-                resultExtensiones.remove(link);
-            }
-        }
+        List<String> resultExtensiones= links.stream().filter(link -> Arrays.stream(extensiones).noneMatch(extension -> link.endsWith(extension)))
+                .filter(link -> (link.startsWith("https:") || link.startsWith("http:"))).toList();
+
         //List<String> resultTerminacion = resultExtensiones.stream().filter(link -> link.startsWith("https:")).collect(Collectors.toList());
-        List<String> resultMap = resultExtensiones.stream().map(link -> link.startsWith("/") ? domain + link : link)
-                .collect(Collectors.toList());
+        List<String> resultMap = resultExtensiones.stream().map(link -> link.startsWith("/") ? domain + link : link).toList();
 
 
         List<String> resultLinks = new ArrayList<>();
-        resultLinks.addAll(new HashSet<>(resultMap));
+        resultLinks.addAll(resultMap);
         
         return resultLinks; 
         

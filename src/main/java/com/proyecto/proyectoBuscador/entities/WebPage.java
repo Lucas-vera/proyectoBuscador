@@ -31,6 +31,8 @@ public class WebPage {
     @Column(name = "description")
     private String description;
 
+    private Integer contadorRevision;
+
     public WebPage() {
     }
     
